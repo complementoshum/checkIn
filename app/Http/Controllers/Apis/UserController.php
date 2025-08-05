@@ -44,10 +44,9 @@ class UserController extends Controller
         }
     }
 
-    public function getUser(Request $request)
+    public function getUser($id)
     {
         try {
-            $id = $request->query('id');
             if (!$id) {
                 return response()->json([
                     "status" => false,
