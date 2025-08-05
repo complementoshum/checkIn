@@ -2,17 +2,23 @@ FROM php:8.3-fpm-bullseye
 
 # Instalar dependencias
 RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends \
+    build-essential \
+    openjdk-17-jdk \
+    libmcrypt-dev \
     nano \
-    git \
-    curl \
-    zip \
-    unzip \
+    libpq-dev \
     libzip-dev \
     libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    libssl-dev \
-    libcurl4-openssl-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    zip \
+    unzip \
+    screen \
+    gnupg2 \
+    libjpeg62-turbo-dev \
+    libwebp-dev \
+    wget \
+    curl \
     && docker-php-ext-install pdo_mysql pdo_pgsql zip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j$(nproc) gd \
