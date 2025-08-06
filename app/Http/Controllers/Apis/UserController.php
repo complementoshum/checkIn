@@ -49,6 +49,7 @@ class UserController extends Controller
     {
         try {
             $users = User::whereNotNull('qrImagen')->get();
+            
             if ($users->isEmpty()) {
                 return response()->json([
                     "status" => true,
@@ -124,10 +125,9 @@ class UserController extends Controller
         }
     }
 
-    public function checkIn(Request $request)
+    public function checkIn($id)
     {
         try {
-            $id = $request->input('id');
             if (!$id) {
                 return response()->json([
                     "status" => false,
