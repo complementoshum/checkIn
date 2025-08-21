@@ -49,7 +49,7 @@ class UserController extends Controller
     {
         try {
             $users = User::whereNotNull('qrImagen')->get();
-            
+
             if ($users->isEmpty()) {
                 return response()->json([
                     "status" => true,
@@ -62,7 +62,7 @@ class UserController extends Controller
                 $userPhone = "57" . $user->telefono;
                 $userImage = str_replace('data:image/svg+xml;base64,', '', $user->qrImagen);
 
-                $userMessage = "Este es tu qr de ingreso al envento";
+                $userMessage = "Hola {$user->nombres}, este es tu qr de ingreso al envento (PRUEBA)";
 
                 $response = Http::post(env("API_MESSAGE") . 'whatsapp/send-message', [
                     "number"    => $userPhone,

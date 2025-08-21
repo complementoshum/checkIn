@@ -19,8 +19,9 @@ class User extends Authenticatable
         'documento',
         'nombres',
         'telefono',
-        'permiteInvitados',
         'numeroInvitados',
+        'invitados',
+        'imgInvitacion',
         'qrImagen',
         'checkIn',
     ];
