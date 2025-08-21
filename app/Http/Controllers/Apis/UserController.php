@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Apis;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Http;
@@ -143,8 +144,10 @@ class UserController extends Controller
                 ], 404);
             }
 
+            $now = Carbon::now()->format('Y-m-d H:i:s');
+            
             User::where('id', $id)->update([
-                'checkIn' => now()
+                'checkIn' => $now
             ]);
 
             return response()->json([
