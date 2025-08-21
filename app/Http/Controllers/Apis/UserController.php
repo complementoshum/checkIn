@@ -25,8 +25,8 @@ class UserController extends Controller
 
             foreach ($users as $user) {
                 $userId = $user->id;
-                $qrSvg = QrCode::format('svg')->size(150)->margin(2)->generate($userId);
-                $base64Image = 'data:image/svg+xml;base64,' . base64_encode($qrSvg);
+                $qrPng  = QrCode::format('png')->size(150)->margin(2)->generate($userId);
+                $base64Image = 'data:image/png;base64,' . base64_encode($qrPng );
 
                 User::where('id', $userId)->update([
                     'qrImagen' => $base64Image
@@ -41,6 +41,35 @@ class UserController extends Controller
             return response()->json([
                 "status" => false,
                 "msg" => "Ocurrió un error al generar el código QR.",
+                "error" => $ex->getMessage()
+            ], 500);
+        }
+    }
+
+    public function generateInvitation(Request $request)
+    {
+        try {
+            $users = User::whereNull('imgInvitacion')->get();
+            if ($users->isEmpty()) {
+                return response()->json([
+                    "status" => true,
+                    "msg" => "No se encontraron invitaciones pendientes por generar."
+                ], 200);
+            }
+
+            foreach ($users as $user) {
+                $qr = $user->qrImagen;
+                $nombres = $user->nombres;
+            }
+
+            return response()->json([
+                "status" => true,
+                "msg" => "Invitaciones generadas correctamente."
+            ], 200);
+        } catch (Exception $ex) {
+            return response()->json([
+                "status" => false,
+                "msg" => "Ocurrió un error al generar las invitaciones.",
                 "error" => $ex->getMessage()
             ], 500);
         }
@@ -61,7 +90,7 @@ class UserController extends Controller
             $sends = 0;
             foreach ($users as $user) {
                 $userPhone = "57" . $user->telefono;
-                $userImage = str_replace('data:image/svg+xml;base64,', '', $user->qrImagen);
+                $userImage = str_replace('data:image/png;base64,', '', $user->qrImagen);
 
                 $userMessage = "Hola {$user->nombres}, este es tu qr de ingreso al envento (PRUEBA)";
 
@@ -69,7 +98,7 @@ class UserController extends Controller
                     "number"    => $userPhone,
                     "message"   => $userImage,
                     "isImage"   => true,
-                    "mimetype"  => "image/svg+xml",
+                    "mimetype"  => "image/png",
                     "filename"  => "foto.jpg",
                     "caption"   => $userMessage
                 ]);
@@ -145,7 +174,7 @@ class UserController extends Controller
             }
 
             $now = Carbon::now()->format('Y-m-d H:i:s');
-            
+
             User::where('id', $id)->update([
                 'checkIn' => $now
             ]);

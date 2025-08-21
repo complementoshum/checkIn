@@ -28,7 +28,7 @@ class User extends Authenticatable
 
     protected $hidden = [
         'imgInvitacion',
-        'qrImagen'
+        ''
     ];
 
     protected $dates = [
