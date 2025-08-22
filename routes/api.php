@@ -8,7 +8,7 @@ Route::get('/user/{id}', [UserController::class, 'getUser']);
 
 Route::get('/check-in/{id}', [UserController::class, 'checkIn']);
 
-Route::post('/send-messages', [UserController::class, 'sendMessage']);
+// Route::post('/send-messages', [UserController::class, 'sendMessage']);
 
-
-Route::post('/generate-invitation', [UserController::class, 'generateInvitation']);
+// Route::get('/generate-invitation', [UserController::class, 'generateInvitation']);
+// Route::get('/generate-invitation', [UserController::class, 'generateInvitationTwo']);

@@ -13,22 +13,24 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'T_USUARIOS';
+    protected $table = 'T_USUARIOS_20250822';
     public $timestamps = false;
 
     protected $fillable = [
         'id',
         'documento',
         'nombres',
+        'indicativo',
         'telefono',
         'numeroInvitados',
         'invitados',
         'checkIn',
+        
     ];
-
+    
     protected $hidden = [
         'imgInvitacion',
-        ''
+        'qrImagen',
     ];
 
     protected $dates = [
