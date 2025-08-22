@@ -13,7 +13,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'T_USUARIOS_20250822';
+    protected $table = 'T_USUARIOS_20250823';
     public $timestamps = false;
 
     protected $fillable = [
